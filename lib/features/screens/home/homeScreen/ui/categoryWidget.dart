@@ -3,6 +3,7 @@ import 'package:egrocer/core/constant/constant.dart';
 import 'package:egrocer/core/constant/routeGenerator.dart';
 import 'package:egrocer/core/model/homeScreenData.dart';
 import 'package:egrocer/core/provider/sliderImagesProvider.dart';
+import 'package:egrocer/features/screens/home/homeScreen/widget/bannerWidget.dart';
 import 'package:egrocer/features/screens/home/homeScreen/widget/sliderImageWidget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +12,7 @@ class HomeScreenCategory {
   static Widget categoryWidget(List<Category> categories,
       {List<Sliders>? sliders,
       List<Sections>? sections,
+      List<BannerModel> mixWithSliderBanners = const [],
       int? catID,
       required BuildContext context}) {
     print("Category widget call==================================*#====>");
@@ -180,6 +182,11 @@ class HomeScreenCategory {
                           );
                         },
                       ),
+                      if ((mixWithSliderBanners.length - 1) >= (index * 2))
+                        BannerUi(
+                          banner: mixWithSliderBanners[index * 2],
+                          horizontalPadding: false,
+                        ),
                       if (sliders != null &&
                           // sliders
                           //         .where((element) =>
@@ -227,6 +234,11 @@ class HomeScreenCategory {
                                     ))
                                 .toList(), */
                           ),
+                        ),
+                      if ((mixWithSliderBanners.length - 1) >= (index * 2 + 1))
+                        BannerUi(
+                          banner: mixWithSliderBanners[index * 2 + 1],
+                          horizontalPadding: false,
                         ),
                     ],
                   );

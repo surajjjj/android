@@ -1,4 +1,3 @@
-
 import 'package:egrocer/core/model/productListItem.dart';
 
 class HomeScreenData {
@@ -13,6 +12,8 @@ class HomeScreenData {
   late final List<Sliders> sliders;
   late final List<Offers> offers;
   late final List<Sections> sections;
+  late final List<BannerModel> topBanners;
+  late final List<BannerModel> mixWithSliderBanners;
 
   HomeScreenData.fromJson(Map<String, dynamic> json) {
     category =
@@ -22,6 +23,11 @@ class HomeScreenData {
     offers = List.from(json['offers']).map((e) => Offers.fromJson(e)).toList();
     sections =
         List.from(json['sections']).map((e) => Sections.fromJson(e)).toList();
+    topBanners =
+        List.from(json['top_banners']).map((e) => BannerModel.fromJson(e)).toList();
+    mixWithSliderBanners = List.from(json['mix_with_slider_banners'])
+        .map((e) => BannerModel.fromJson(e))
+        .toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -330,4 +336,60 @@ class AllActiveChild {
         "has_active_child": hasActiveChild,
         "all_active_childs": List<dynamic>.from(allActiveChilds.map((x) => x)),
       };
+}
+
+class BannerModel {
+  final String alt;
+  final int id;
+  final String imageUrl;
+  final String? navigateUrl;
+  final String? type;
+  BannerModel({
+    required this.alt,
+    required this.id,
+    required this.imageUrl,
+    this.navigateUrl,
+    this.type,
+  });
+
+  BannerModel copyWith({
+    String? alt,
+    int? id,
+    String? imageUrl,
+    String? navigateUrl,
+    String? type,
+  }) {
+    return BannerModel(
+      alt: alt ?? this.alt,
+      id: id ?? this.id,
+      imageUrl: imageUrl ?? this.imageUrl,
+      navigateUrl: navigateUrl ?? this.navigateUrl,
+      type: type ?? this.type,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'alt': alt,
+      'id': id,
+      'image_url': imageUrl,
+      'navigate_url': navigateUrl,
+      'type': type,
+    };
+  }
+
+  factory BannerModel.fromJson(Map<String, dynamic> map) {
+    return BannerModel(
+      alt: map['alt'] ?? '',
+      id: map['id']?.toInt() ?? 0,
+      imageUrl: map['image_url'] ?? '',
+      navigateUrl: map['navigate_url'],
+      type: map['type'],
+    );
+  }
+
+  @override
+  String toString() {
+    return 'Banner(alt: $alt, id: $id, imageUrl: $imageUrl, navigateUrl: $navigateUrl, type: $type)';
+  }
 }
