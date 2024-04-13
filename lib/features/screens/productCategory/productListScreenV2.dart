@@ -30,8 +30,11 @@ class _ProductListScreenV2State extends State<ProductListScreenV2> {
     return DefaultTabController(
       length: widget.sections.length,
       initialIndex: widget.sections.indexWhere(
-              (element) => element.title == widget.currentSubCategory) ??
-          1,
+                  (element) => element.title == widget.currentSubCategory) !=
+              -1
+          ? widget.sections.indexWhere(
+              (element) => element.title == widget.currentSubCategory)
+          : 0,
       child: Scaffold(
         appBar: getAppBar(
           context: context,
